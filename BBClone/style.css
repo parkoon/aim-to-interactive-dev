@@ -49,6 +49,14 @@ img {
   align-items: center;
   justify-content: center;
   width: 100%;
+
+  /* 기본 값 0 */
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.visible {
+  opacity: 1;
 }
 .scene-img {
   max-height: 100vh;
