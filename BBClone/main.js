@@ -24,6 +24,8 @@
   window.addEventListener("scroll", () => {
     let step;
     let boundingRect;
+
+    // 루프를 다 돌 필요가 있을까? 근처에 있는 애들의 위치만 체크하면 될 것 같은데 --> intersection observer 로 눈에 보이는 애들을 확인 할 수 있다.
     for (let i = 0; i < stepElems.length; i++) {
       step = stepElems[i];
       boundingRect = step.getBoundingClientRect();
