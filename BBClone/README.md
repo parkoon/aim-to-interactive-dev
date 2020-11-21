@@ -8,7 +8,7 @@
 
 > https://parkoon.github.io/aim-to-interactive-dev/BBClone/
 
-## Note
+## Note (About CSS)
 
 ```css
 img {
@@ -65,4 +65,18 @@ img {
 /* data-index 의 값이 5인 bird class */
 [data-index="5"] .bird {
 }
+```
+
+## Note (About JS)
+
+```javascript
+// 1. TIP 💡각 HTML 에 일일히 data-index 속성을 노가다로 부여 할 수 있지만, 페이지가 로드 되었을 때 태그 를 찾아 for 문으로 data-index 를 삽입 할 수 있다.
+
+// 2. TIP 💡 data-action 에 함수명을 부여하고 그 태그 시점에서 data-action 에 접근하여 함수를 실행한다.
+
+// 3. `getBoundingClientRect` 메소드를 통해 현재 나의 위치, 크기 등등을 찾을 수 있다. 스크롤 + 위치에 따른 이벤트 처리 시 아주 유용하게 쓰일 수 있겠다.
+
+// 4. 스크롤 이벤트가 동작 할 때 처리가 필요한 모든 태그를 돌아 조건에 맞는 태그를 찾는다.
+
+// 5. 4번의 경우 태그가 몇 개 없다면 성능상 문제가 되지 않겠지만 한 두개가 아니라면 성능 이슈가 생길 수 있다. 이 때 `IntersectionObserver` 를 사용한다. `IntersectionObserver` 는 관찰 할 객체를 지정하고 그 객체가 사라지거나 보여질 때 특정 동작을 할 수 있다.
 ```
