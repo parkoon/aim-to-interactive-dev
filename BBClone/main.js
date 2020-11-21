@@ -48,7 +48,6 @@
     currentItem.classList.add("visible");
 
     if (action) {
-      console.log(action);
       actions[action](true);
     }
   }
@@ -56,7 +55,6 @@
   function inactivate(action) {
     currentItem.classList.remove("visible");
     if (action) {
-      console.log(action);
       actions[action](false);
     }
   }

@@ -56,6 +56,9 @@ img {
   /* 기본 값 0 */
   opacity: 0;
   transition: 0.5s;
+
+  /* 브라우저에게 미리 알려준다. 너무 많이 사용하면 느려질 수 있다. */
+  will-change: opacity;
 }
 
 .visible {
@@ -92,4 +95,13 @@ img {
 [data-index="5"] .bird {
   left: 30%;
   bottom: 30%;
+}
+
+.global-footer {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.strikethrough {
+  text-decoration: line-through;
 }
