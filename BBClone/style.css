@@ -36,6 +36,9 @@ img {
 
   /* sticky를 사용하면 높이가 없어지므로 높이를 따로 지정해줘야 한다. */
   height: 100vh;
+
+  /* 새 위치가 이동함에 따라 스크롤 발생 */
+  overflow-x: hidden;
 }
 
 .graphic-item {
@@ -72,4 +75,21 @@ img {
   padding: 0.5rem 1rem;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.3) 0 0 3px;
+}
+
+.bird {
+  position: absolute;
+  left: 0;
+  bottom: 70%;
+  width: 100px;
+
+  /* translate 에 %를 사용하면 내 크기가 된다. */
+  transform: translateX(-100%);
+  /* 0.5초 이후에 일정한 속도로 이동한다. */
+  transition: 1.5s 0.5s linear;
+}
+
+[data-index="5"] .bird {
+  left: 30%;
+  bottom: 30%;
 }
