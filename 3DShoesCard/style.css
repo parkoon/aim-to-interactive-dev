@@ -11,7 +11,6 @@ body {
   align-items: center;
   justify-content: center;
   perspective: 1000px;
-  perspective: 1000px;
 }
 .container {
   width: 50%;
