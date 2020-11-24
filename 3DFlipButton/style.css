@@ -13,31 +13,33 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  perspective: 1000px;
 }
 
 .btn-wrapper {
-  width: 15rem;
-  height: 5rem;
+  width: 200px;
+  height: 100px;
   text-align: center;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
-  line-height: 5rem;
-  translate: 0.3s linear;
+  line-height: 100px;
+  transition: 0.5s;
   transform-style: preserve-3d;
 }
 
 .btn-wrapper:hover {
-  transform: rotateX(90deg);
+  transform: rotateX(-90deg);
 }
 
 .front {
   background: #9e9d24;
-  height: 5rem;
+  height: 100px;
+  transform: translateZ(50px);
 }
 
 .back {
   background: #afb42b;
-  height: 5rem;
-  transform: rotateX(90deg) translateZ(5rem);
+  height: 100px;
+  transform: rotateX(90deg) translateZ(150px);
 }
