@@ -10,6 +10,9 @@ header {
   position: relative;
   color: #fff;
   font-family: sans-serif;
+
+  /* Wow... header 를 스크롤 만큼 움직이는데 z-index를 -1 줘서 다음 요소에 가려지게 한다니! */
+  z-index: -1;
 }
 
 .intro-text h1 {
