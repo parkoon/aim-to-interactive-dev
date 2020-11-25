@@ -4,15 +4,23 @@
   box-sizing: border-box;
 }
 
+body {
+  perspective: 1000px;
+}
+
 header {
   min-height: 100vh;
   background: linear-gradient(240deg, #834d4d, #503d3d);
-  position: relative;
+  position: sticky;
+  top: 0;
+
   color: #fff;
   font-family: sans-serif;
 
   /* Wow... header 를 스크롤 만큼 움직이는데 z-index를 -1 줘서 다음 요소에 가려지게 한다니! */
   z-index: -1;
+
+  transform-style: preserve-3d;
 }
 
 .intro-text h1 {
