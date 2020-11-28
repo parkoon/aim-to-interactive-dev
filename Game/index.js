@@ -67,6 +67,8 @@ window.addEventListener("click", (e) => {
     e.clientX - canvas.width / 2
   );
 
+  // 파이, 라디안, 삼각함수
+
   const velocity = {
     x: Math.cos(angle),
     y: Math.sin(angle),
