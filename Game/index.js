@@ -68,7 +68,7 @@ class Enemy {
 const x = canvas.width / 2;
 const y = canvas.height / 2;
 
-const player = new Player(x, y, 30, "blue");
+const player = new Player(x, y, 10, "white");
 
 const projectiles = [];
 const enemies = [];
@@ -87,7 +87,8 @@ function spawnEnemies() {
       y = Math.random() < 0.5 ? 0 - radius : Math.random() + canvas.height;
     }
 
-    const color = "green";
+    // HSL 을 이용해서 랜덤 색상 생성하기
+    const color = `hsl(${Math.random() * 360}, 50%, 50%)`;
     const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
 
     // 파이, 라디안, 삼각함수
@@ -106,11 +107,24 @@ let animationId;
 function animate() {
   animationId = requestAnimationFrame(animate);
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  // Opacity 를 줘서 원 뒤에 흐려지는(?) 효과를 가져 갈 수 있다.
+  ctx.fillStyle = "rgba(0,0,0,0.1)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   player.draw();
 
-  projectiles.forEach((projectile) => {
+  projectiles.forEach((projectile, index) => {
     projectile.update();
+
+    if (
+      projectile.x + projectile.radius < 0 ||
+      projectile.x - projectile.radius > canvas.width ||
+      projectile.y + projectile.radius < 0 ||
+      projectile.y - projectile.radius > canvas.height
+    ) {
+      setTimeout(() => {
+        projectiles.splice(index, 1);
+      }, 0);
+    }
   });
 
   enemies.forEach((enemy, index) => {
@@ -140,6 +154,7 @@ function animate() {
 }
 
 window.addEventListener("click", (e) => {
+  console.log(projectiles);
   const angle = Math.atan2(
     e.clientY - canvas.height / 2,
     e.clientX - canvas.width / 2
@@ -148,12 +163,12 @@ window.addEventListener("click", (e) => {
   // 파이, 라디안, 삼각함수
 
   const velocity = {
-    x: Math.cos(angle),
-    y: Math.sin(angle),
+    x: Math.cos(angle) * 4,
+    y: Math.sin(angle) * 4,
   };
 
   projectiles.push(
-    new Projectile(canvas.width / 2, canvas.height / 2, 5, "red", velocity)
+    new Projectile(canvas.width / 2, canvas.height / 2, 5, "white", velocity)
   );
 });
 
