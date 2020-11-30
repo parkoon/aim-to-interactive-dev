@@ -132,7 +132,7 @@ function animate() {
 
     const dist = Math.hypot(player.x - enemy.x, player.y - enemy.y);
 
-    // Object Touch
+    // End Game
     if (dist - enemy.radius - player.radius < 1) {
       // 트릭. setTimeout 을 걸어주지 않으면 배열에서 객체가 없어지면서 깜빡이는 현상이 발생한다.
       cancelAnimationFrame(animationId);
@@ -141,13 +141,20 @@ function animate() {
     projectiles.forEach((projectile, projectileIndex) => {
       const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
 
-      // Object Touch
+      // When Projectiles touch enemy
       if (dist - enemy.radius - projectile.radius < 1) {
-        // 트릭. setTimeout 을 걸어주지 않으면 배열에서 객체가 없어지면서 깜빡이는 현상이 발생한다.
-        setTimeout(() => {
-          enemies.splice(index, 1);
-          projectiles.splice(projectileIndex, 1);
-        }, 0);
+        if (enemy.radius - 10 > 10) {
+          enemy.radius -= 10;
+          setTimeout(() => {
+            projectiles.splice(projectileIndex, 1);
+          }, 0);
+        } else {
+          // 트릭. setTimeout 을 걸어주지 않으면 배열에서 객체가 없어지면서 깜빡이는 현상이 발생한다.
+          setTimeout(() => {
+            enemies.splice(index, 1);
+            projectiles.splice(projectileIndex, 1);
+          }, 0);
+        }
       }
     });
   });
