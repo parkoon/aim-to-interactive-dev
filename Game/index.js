@@ -64,6 +64,32 @@ class Enemy {
     this.y = this.y + this.velocity.y;
   }
 }
+class Particle {
+  constructor(x, y, radius, color, velocity) {
+    this.x = x;
+    this.y = y;
+    this.radius = radius;
+    this.color = color;
+    this.velocity = velocity;
+    this.alpha = 1;
+  }
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  update() {
+    this.draw();
+    this.x = this.x + this.velocity.x;
+    this.y = this.y + this.velocity.y;
+    this.alpha -= 0.01;
+  }
+}
 
 const x = canvas.width / 2;
 const y = canvas.height / 2;
@@ -72,6 +98,7 @@ const player = new Player(x, y, 10, "white");
 
 const projectiles = [];
 const enemies = [];
+const particles = [];
 
 function spawnEnemies() {
   setInterval(() => {
@@ -112,6 +139,14 @@ function animate() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   player.draw();
 
+  particles.forEach((particle, index) => {
+    if (particle.alpha <= 0) {
+      particles.splice(index, 1);
+    } else {
+      particle.update();
+    }
+  });
+
   projectiles.forEach((projectile, index) => {
     projectile.update();
 
@@ -143,6 +178,23 @@ function animate() {
 
       // When Projectiles touch enemy
       if (dist - enemy.radius - projectile.radius < 1) {
+        // Create Explosions
+        for (let i = 0; i < enemy.radius * 2; i++) {
+          console.log("zz");
+          particles.push(
+            new Particle(
+              projectile.x,
+              projectile.y,
+              Math.random() * 2,
+              enemy.color,
+              {
+                x: (Math.random() - 0.5) * (Math.random() * 6),
+                y: (Math.random() - 0.5) * (Math.random() * 6),
+              }
+            )
+          );
+        }
+
         if (enemy.radius - 10 > 5) {
           gsap.to(enemy, {
             radius: enemy.radius - 10,
@@ -163,7 +215,6 @@ function animate() {
 }
 
 window.addEventListener("click", (e) => {
-  console.log(projectiles);
   const angle = Math.atan2(
     e.clientY - canvas.height / 2,
     e.clientX - canvas.width / 2
