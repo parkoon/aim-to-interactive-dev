@@ -74,40 +74,37 @@ const projectiles = [];
 const enemies = [];
 
 function spawnEnemies() {
-  setInterval(() => { 
-    const radius = Math.random() * (30 - 4) + 4
+  setInterval(() => {
+    const radius = Math.random() * (30 - 4) + 4;
 
     let x;
     let y;
     if (Math.random() < 0.5) {
-      x = Math.random() < 0.5 ? 0 - radius : Math.random() + canvas.width
-      y = Math.random() * canvas.height
+      x = Math.random() < 0.5 ? 0 - radius : Math.random() + canvas.width;
+      y = Math.random() * canvas.height;
     } else {
-      x = Math.random() * canvas.width
-      y = Math.random() < 0.5 ? 0 - radius : Math.random() + canvas.height
-
+      x = Math.random() * canvas.width;
+      y = Math.random() < 0.5 ? 0 - radius : Math.random() + canvas.height;
     }
-   
-    const color = 'green'
-    const angle = Math.atan2(
-      canvas.height / 2 - y,
-      canvas.width / 2 - x  
-    );
-  
+
+    const color = "green";
+    const angle = Math.atan2(canvas.height / 2 - y, canvas.width / 2 - x);
+
     // 파이, 라디안, 삼각함수
-  
+
     const velocity = {
       x: Math.cos(angle),
       y: Math.sin(angle),
     };
-  
-    enemies.push(new Enemy(x, y, radius, color, velocity))
-  }, 1000)
-}
-spawnEnemies()
 
+    enemies.push(new Enemy(x, y, radius, color, velocity));
+  }, 1000);
+}
+spawnEnemies();
+
+let animationId;
 function animate() {
-  requestAnimationFrame(animate);
+  animationId = requestAnimationFrame(animate);
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   player.draw();
@@ -116,9 +113,30 @@ function animate() {
     projectile.update();
   });
 
-  enemies.forEach(enemy => {
-    enemy.update()
-  })
+  enemies.forEach((enemy, index) => {
+    enemy.update();
+
+    const dist = Math.hypot(player.x - enemy.x, player.y - enemy.y);
+
+    // Object Touch
+    if (dist - enemy.radius - player.radius < 1) {
+      // 트릭. setTimeout 을 걸어주지 않으면 배열에서 객체가 없어지면서 깜빡이는 현상이 발생한다.
+      cancelAnimationFrame(animationId);
+    }
+
+    projectiles.forEach((projectile, projectileIndex) => {
+      const dist = Math.hypot(projectile.x - enemy.x, projectile.y - enemy.y);
+
+      // Object Touch
+      if (dist - enemy.radius - projectile.radius < 1) {
+        // 트릭. setTimeout 을 걸어주지 않으면 배열에서 객체가 없어지면서 깜빡이는 현상이 발생한다.
+        setTimeout(() => {
+          enemies.splice(index, 1);
+          projectiles.splice(projectileIndex, 1);
+        }, 0);
+      }
+    });
+  });
 }
 
 window.addEventListener("click", (e) => {
