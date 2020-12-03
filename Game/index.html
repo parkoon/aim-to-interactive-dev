@@ -3,6 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
 
     <link rel="stylesheet" href="style.css" />
     <script
@@ -13,6 +17,9 @@
     <title>Game</title>
   </head>
   <body>
+    <div class="fixed text-white text-sm ml-2 mt-1 select-none">
+      <span>Score: </span><span id="scoreEl">0</span>
+    </div>
     <canvas></canvas>
     <script src="index.js"></script>
   </body>

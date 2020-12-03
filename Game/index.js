@@ -1,9 +1,10 @@
 const canvas = document.querySelector("canvas");
-
 const ctx = canvas.getContext("2d");
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
+
+const scoreEl = document.querySelector("#scoreEl");
 
 class Player {
   constructor(x, y, radius, color) {
@@ -135,6 +136,7 @@ function spawnEnemies() {
 spawnEnemies();
 
 let animationId;
+let score = 0;
 function animate() {
   animationId = requestAnimationFrame(animate);
 
@@ -200,6 +202,10 @@ function animate() {
         }
 
         if (enemy.radius - 10 > 5) {
+          // Increase Our Score
+          score += 100;
+          scoreEl.innerHTML = score;
+
           gsap.to(enemy, {
             radius: enemy.radius - 10,
           });
@@ -207,6 +213,10 @@ function animate() {
             projectiles.splice(projectileIndex, 1);
           }, 0);
         } else {
+          // Remove From Scene Altogether
+          score += 250;
+          scoreEl.innerHTML = score;
+
           // 트릭. setTimeout 을 걸어주지 않으면 배열에서 객체가 없어지면서 깜빡이는 현상이 발생한다.
           setTimeout(() => {
             enemies.splice(index, 1);
