@@ -5,6 +5,8 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 const scoreEl = document.querySelector("#scoreEl");
+const startGameBtn = document.querySelector("#startGameBtn");
+const modalEl = document.querySelector("#modalEl");
 
 class Player {
   constructor(x, y, radius, color) {
@@ -133,7 +135,6 @@ function spawnEnemies() {
     enemies.push(new Enemy(x, y, radius, color, velocity));
   }, 1000);
 }
-spawnEnemies();
 
 let animationId;
 let score = 0;
@@ -246,4 +247,8 @@ window.addEventListener("click", (e) => {
   );
 });
 
-animate();
+startGameBtn.addEventListener("click", () => {
+  animate();
+  spawnEnemies();
+  modalEl.style.display = "none";
+});
