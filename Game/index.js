@@ -7,6 +7,7 @@ canvas.height = window.innerHeight;
 const scoreEl = document.querySelector("#scoreEl");
 const startGameBtn = document.querySelector("#startGameBtn");
 const modalEl = document.querySelector("#modalEl");
+const bigScoreEl = document.querySelector("#bigScoreEl");
 
 class Player {
   constructor(x, y, radius, color) {
@@ -178,6 +179,8 @@ function animate() {
     if (dist - enemy.radius - player.radius < 1) {
       // 트릭. setTimeout 을 걸어주지 않으면 배열에서 객체가 없어지면서 깜빡이는 현상이 발생한다.
       cancelAnimationFrame(animationId);
+      modalEl.style.display = "flex";
+      bigScoreEl.innerHTML = score;
     }
 
     projectiles.forEach((projectile, projectileIndex) => {
