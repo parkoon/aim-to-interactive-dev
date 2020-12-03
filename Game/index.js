@@ -102,11 +102,21 @@ class Particle {
 const x = canvas.width / 2;
 const y = canvas.height / 2;
 
-const player = new Player(x, y, 10, "white");
+let player = new Player(x, y, 10, "white");
+let projectiles = [];
+let enemies = [];
+let particles = [];
+let score = 0;
 
-const projectiles = [];
-const enemies = [];
-const particles = [];
+function init() {
+  player = new Player(x, y, 10, "white");
+  projectiles = [];
+  enemies = [];
+  particles = [];
+  score = 0;
+  scoreEl.innerHTML = score;
+  bigScoreEl.innerHTML = score;
+}
 
 function spawnEnemies() {
   setInterval(() => {
@@ -138,7 +148,6 @@ function spawnEnemies() {
 }
 
 let animationId;
-let score = 0;
 function animate() {
   animationId = requestAnimationFrame(animate);
 
@@ -190,7 +199,6 @@ function animate() {
       if (dist - enemy.radius - projectile.radius < 1) {
         // Create Explosions
         for (let i = 0; i < enemy.radius * 2; i++) {
-          console.log("zz");
           particles.push(
             new Particle(
               projectile.x,
@@ -251,6 +259,7 @@ window.addEventListener("click", (e) => {
 });
 
 startGameBtn.addEventListener("click", () => {
+  init();
   animate();
   spawnEnemies();
   modalEl.style.display = "none";
