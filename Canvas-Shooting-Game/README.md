@@ -1,3 +1,13 @@
+# Interactive Developer Course #6
+
+## Demo
+
+> https://parkoon.github.io/aim-to-interactive-dev/Canvas-Shooting-Game/
+
+## Note (About CSS)
+
+## Note (About JS)
+
 ## Operation Principle
 
 1. **내가 클릭 한 각도**로 공이 생긴다
