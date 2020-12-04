@@ -11,12 +11,12 @@
 ## Operation Principle
 
 1. **내가 클릭 한 각도**로 공이 생긴다
+   > 우리는 x와 y의 증가량을 알기위해 우선 각도를 구하고 그 각도를 이용해 x와 y의 값을 각각 구한다.
 
 ```javascript
-// Q. 사실 잘 이해하지 못했음. 동료에게 문의
 const angle = Math.atan2(
-  e.clientY - canvas.height / 2,
-  e.clientX - canvas.width / 2
+  e.clientY - canvas.height / 2, // from 캔버스의 중심점에서
+  e.clientX - canvas.width / 2 // from 캔버스의 중심점에서
 );
 
 const velocity = {
